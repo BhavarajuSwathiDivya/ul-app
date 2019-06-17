@@ -1,0 +1,27 @@
+
+
+.container {
+  width: 95%;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.login-block {
+  margin-top:100px;
+  .ui-fluid {
+    .fa {
+      color: #000000bf;
+    }
+  }
+
+  .ui-button:enabled {
+    background-color: #000000bf;
+    border-color: #000000bf;
+
+    &:hover {
+      background-color: #000000ab;
+      color: #ffffff;
+      border-color: #000000bf;
+    }
+  }
+}

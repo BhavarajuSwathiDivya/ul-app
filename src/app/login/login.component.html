@@ -1,0 +1,50 @@
+<!-- <div class="login-container">
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-7 ui-md-7">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <input type="text" pInputText placeholder="Username">
+      </div>
+      </div>
+      <div class="ui-g-7 ui-md-7">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="fa fa-key"></i></span>
+          <input type="text" pInputText placeholder="Password">
+        </div>
+      </div>
+    </div> -->
+
+
+<div class='login-container'>
+  <!-- <p-panel header="Login"> -->
+  <div class='logo'><a href="#"><img src="../assets/method-draw-image.svg" /></a></div>
+  <div class="login-block">
+    <form name="form" (ngSubmit)="f.form.valid && signIn()" #f="ngForm" novalidate>
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-12">
+        <div class="ui-inputgroup form-group">
+          <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+          <input type="email" pInputText placeholder="Username" name='username' class='form-control' [(ngModel)]='userprofile.username' required/>
+          <!-- <div *ngIf="f.submitted && username.invalid" class="invalid-feedback">
+              <div *ngIf="username.errors.required">First Name is required</div>
+          </div> -->
+        </div>
+      </div>
+      <div class="ui-g-12 ui-md-12">
+        <div class="ui-inputgroup form-group">
+          <span class="ui-inputgroup-addon"><i class="fa fa-key"></i></span>
+          <input type="password" pInputText placeholder="Password"  name='password' class='form-control' [(ngModel)]='userprofile.password' required />
+          <!-- <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
+              <div *ngIf="password.errors.required">First Name is required</div>
+          </div> -->
+        </div>
+      </div>
+      <div class="ui-g-3 ui-md-3 ui-md-offset-9 ui-sm-12">
+        <button pButton type="submit" class="ui-button-raised" label='Login' style='float: right;'
+         ></button>
+      </div>
+    </div>
+  </form>
+  </div>
+  <!-- </p-panel> -->
+</div>

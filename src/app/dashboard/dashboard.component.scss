@@ -1,0 +1,73 @@
+.dashboard-container{
+  ::ng-deep {
+    .ui-accordion {
+      .ui-accordion-header {
+        &:not(.ui-state-active):not(.ui-state-disabled):hover {
+          a {
+            background-color: #046aa2;
+            color: #fff;
+
+            .ui-accordion-toggle-icon {
+              color: #fff;
+            }
+          }
+        }
+
+        &:not(.ui-state-disabled).ui-state-active {
+          a {
+            background-color: #00517d;
+            color: #fff;
+          }
+
+          &:hover {
+            a {
+              background-color: #046aa2;
+              color: #fff;
+
+              .ui-accordion-toggle-icon {
+                color: #fff;
+              }
+            }
+          }
+        }
+
+        a {
+          background-color: #00517d;
+          color: #fff;
+          height: 50px;
+          span{
+            margin: 8px 0px;
+          }
+          .ui-accordion-toggle-icon {
+            color: #fff;
+          }
+        }
+      }
+      .ui-inputgroup{
+        .ui-inputgroup-addon{
+                background-color: #eaeaea;
+        }
+      }
+     
+    }
+    .listview{
+        margin:10px;
+        .listitem{
+            border: 1px solid #ccc;
+            background-color: #eee; 
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            h3{
+                margin: 0;
+            }
+            .list-button{
+                text-align: center;
+                margin: auto;
+            }
+        } 
+    }
+  }
+}  
+ui-dialog{
+    left: 430px;
+    width: 600px;
+}

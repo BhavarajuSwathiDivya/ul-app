@@ -1,0 +1,21 @@
+{
+    "regulatory":[
+        {"label" :"openFDA","value": "openfda"}
+    ],
+    "EndPoint":[
+        {"label":"Drugs","value": "drugs"},
+        {"label":"Animal & Veterinary","value":"A&V"},
+        {"label":"Device","value": "device"},
+        {"label":"Food","value": "food"},
+        {"label":"NSDE","value": "nsde"}
+    ],
+    "apis":[
+        {"label": "510K","value": "510k"},
+        {"label": "Classfication","value": "classification"},
+        {"label": "Recall Enforcement Reports","value": "rer"},
+        {"label": "Adverse Events","value": "ae"},
+        {"label": "Recalls","value": "recalls"},
+        {"label": "pre-market approvals","value": "pmp"},
+        {"label": "Registrations and Listings","value": "r&l"},
+        {"label": "Unique Device identifier","value": "udi"}    ]
+}

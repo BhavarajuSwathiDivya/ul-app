@@ -1,0 +1,11 @@
+<div class='topbar' *ngIf="currentUser">
+  <a href="#"><img src="../assets/method-draw-image.svg" /></a>
+  <div class="dropdown">
+    <a href="javascript:void(0);" class="login-button dropbtn"><i class="fas fa-user"></i> {{currentUser.username | titlecase}}</a>
+    <div class="dropdown-content">
+      <a href="javascript:void(0);"><i class="fas fa-cog" aria-hidden="true"></i>Settings</a>
+      <a href="javascript:void(0);" (click)="onLogout();"><i class="fas fa-sign-out-alt"
+          aria-hidden="true"></i>Logout</a>
+    </div>
+  </div>
+</div>

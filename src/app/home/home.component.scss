@@ -1,0 +1,175 @@
+.home-container {
+    font-family: sans-serif;
+  ::ng-deep {
+    .select1 {
+      h2 {
+        color: #EE4F10;
+      }
+
+      .ui-dropdown {
+        width: 80%;
+    
+        .ui-dropdown-label {
+          color: #fff;
+          background-color: #F39611;
+          background-image: -webkit-gradient(linear, left top, right top, from(#F39611), to(#EE4F10));
+          background-image: -webkit-linear-gradient(to right, #F39611, #EE4F10);
+          background-image: -moz-linear-gradient(to right, #F39611, #EE4F10);
+          background-image: -ms-linear-gradient(to right, #F39611, #EE4F10);
+          background-image: -o-linear-gradient(to right, #F39611, #EE4F10);
+          background-image: linear-gradient(to right, #F39611, #EE4F10);
+          margin: -1px;
+        }
+
+        .ui-dropdown-trigger {
+          background-color: #EE4F10;
+          color: #fff;
+        }
+
+        .ui-dropdown-item {
+          background-color: #F39611;
+          color: #fff;
+        }
+
+        .ui-state-disabled {
+          color: #000;
+        }
+      }
+      .ui-dropdown:not(.ui-state-disabled):hover{
+          border-color: #EE4F10;
+      }
+    }
+
+    .select2 {
+      h2 {
+        color: #214B9C;
+      }
+
+      .ui-dropdown {
+        width: 80%;
+
+        .ui-dropdown-label {
+          color: #fff;
+          background-color: #326DDF;
+          background-image: -webkit-gradient(linear, left top, right top, from(#326DDF), to(#214B9C));
+          background-image: -webkit-linear-gradient(to right, #326DDF, #214B9C);
+          background-image: -moz-linear-gradient(to right, #326DDF, #214B9C);
+          background-image: -ms-linear-gradient(to right, #326DDF, #214B9C);
+          background-image: -o-linear-gradient(to right, #326DDF, #214B9C);
+          background-image: linear-gradient(to right, #326DDF, #214B9C);
+          margin: -1px;
+        }
+
+        .ui-dropdown-trigger {
+          background-color: #214B9C;
+          color: #fff;
+        }
+
+        .ui-dropdown-item {
+          color: #fff;
+          background-color: #326DDF;
+        }
+
+        .ui-state-disabled {
+          color: #000;
+        }
+      }
+      .ui-dropdown:not(.ui-state-disabled):hover{
+        border-color: #214B9C;
+    }
+    }
+
+    .select3 {
+      h2 {
+        color: #A22650;
+      }
+
+      .ui-dropdown {
+        width: 79%;
+
+        .ui-dropdown-label {
+          color: #fff;
+          background-color: #E02364;
+          background-image: -webkit-gradient(linear, left top, right top, from(#E02364), to(#A22650));
+          background-image: -webkit-linear-gradient(to right, #E02364, #A22650);
+          background-image: -moz-linear-gradient(to right, #E02364, #A22650);
+          background-image: -ms-linear-gradient(to right, #E02364, #A22650);
+          background-image: -o-linear-gradient(to right, #E02364, #A22650);
+          background-image: linear-gradient(to right, #E02364, #A22650);
+          margin: -1px;
+        }
+
+        .ui-dropdown-trigger {
+          background-color: #A22650;
+          color: #fff;
+        }
+
+        .ui-dropdown-item {
+          color: #fff;
+          background-color: #E02364;
+        }
+
+        .ui-state-disabled {
+          color: #000;
+        }
+      }
+      .ui-dropdown:not(.ui-state-disabled):hover{
+        border-color: #A22650;
+    }
+    }
+  }
+
+  .searchlist {
+    margin-top: 25px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    .ui-inputgroup {
+        .ui-inputgroup-addon {
+          background-color: #f5f7f8;
+        }
+      }
+    .listview {
+      padding: 15px;
+       &.error{
+           color:red;
+       } 
+      .listitem {
+        font-family: sans-serif;
+        background: #98fb989e;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        border: 1px solid #8cea8cfc;
+        h3 {
+          margin: 0;
+        }
+
+        .list-button {
+          text-align: center;
+          margin: auto;
+        }
+      }
+    }
+
+  }
+}
+
+::ng-deep {
+  body {
+    .ui-dialog {
+    //   padding: 0 10%;
+      width: 50%;
+      max-width:95%;
+      .ui-dialog-titlebar {
+        border: 1px solid #000;
+        background-color: #333;
+        color: #fff;
+        .ui-dialog-titlebar-icon{
+            font-size: 16px;
+            color: #fff;
+            &:hover{
+                color: #e0e0e0;
+            }
+        }
+      }
+    }
+  }
+}

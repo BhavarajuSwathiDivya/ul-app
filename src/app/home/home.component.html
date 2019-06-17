@@ -1,0 +1,110 @@
+<div class='home-container'>
+  <div class='p-grid'>
+    <div class="p-col-4 select1">
+      <h2>Select Regulatory</h2>
+      <p-dropdown [options]="regulatories"  (onChange)="getCategories($event.value)" placeholder="Select Regulatory"></p-dropdown>
+    </div>
+    <div class="p-col-4 select2">
+      <h2>Select Category</h2>
+      <p-dropdown [options]="categories" placeholder="Select Category" (onChange)="getEndpoints($event.value)" [disabled]="!categories.length>0"></p-dropdown>
+    </div>
+    <div class="p-col-4 select3">
+      <h2>Select EndPoint</h2>
+      <p-dropdown [options]="endpoints" placeholder="Select EndPoint" (onChange)="getSearchableFields($event.value)" [disabled]="!endpoints.length>0"></p-dropdown>
+    </div>
+  </div>
+
+  <div class="p-grid searchlist" *ngIf="searchfields.length>0">
+    <div class='p-col-12'>
+      <p style="padding-left:10px;">Select zero or more search fields to make search easier.</p>
+    </div>
+    <div class="p-col-12">
+      <div class='p-grid'>
+        <div class="p-col-4" *ngFor='let field of searchfields; index as i'>
+          <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon">
+                  <p-checkbox [(ngModel)]="selectedInputs[i]" binary="false" (onChange)="selectedInput.value = '';searchablefields[field]='';"></p-checkbox>
+                </span>
+                <input type="text" [disabled]="!selectedInputs[i]" #selectedInput pInputText placeholder="{{field}}" (input)="queryFields($event,field)">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p-col-12">
+      <div class="p-grid">
+        <div class="p-col-4">
+          <label>Select the limit of records (bydefault you get only one record) </label>
+        </div>
+        <div class="p-col-4">
+          <input type="number" pInputText value='1' #recordLimits/>
+        </div>
+        <div class="p-col-4">
+          <button pButton type="button" class="ui-button-raised ui-button-primary" label='Submit' style='float: right;'
+            (click)='recordsError="";recordsArray=[];getResponse(recordLimits.value);'></button>
+        </div>
+      </div>
+
+    </div>
+    <div class='listview error p-col-12' *ngIf="recordsError">
+          <h1>{{recordsError}}</h1>
+    </div>
+    <div class="listview p-col-12" *ngIf="recordsArray.length>0;">
+      <div class='p-grid listitem' *ngFor='let record of recordsArray'>
+        <div class="p-col-10">
+          <div class="p-grid" *ngFor='let item of record | keyvalue | slice:0:5;'>
+            <div class='p-col-3' style="word-wrap: break-word;">{{item.key}}</div>
+            <div class='p-col-1'>:</div>
+            <div class='p-col-8'>{{item.value}} </div>
+          </div>
+        </div>
+        <div class="p-col-2 list-button">
+          <button pButton type="button" class="ui-button ui-button-success ui-button-raised ui-button-primary"
+            (click)="showDialog(record)" label='Full Details'></button>
+        </div>
+      </div>
+      <!-- <div class='p-grid listitem'>
+          <div class="p-col-10">
+            <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
+            <p>Device-class: 2</p>
+            <p>advisory_committee: Anesthesiology</p>
+            <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
+            <p>city: SALT LAKE CITY</p>
+  
+          </div>
+          <div class="p-col-2 list-button">
+            <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
+              label='Full Details'></button>
+          </div>
+        </div>
+        <div class='p-grid listitem'>
+          <div class="p-col-10">
+            <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
+            <p>Device-class: 2</p>
+            <p>advisory_committee: Anesthesiology</p>
+            <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
+            <p>city: SALT LAKE CITY</p>
+  
+          </div>
+          <div class="p-col-2 list-button">
+            <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
+              label='Full Details'></button>
+          </div>
+        </div> -->
+    </div>
+  </div>
+
+</div>
+<p-dialog header="Full Details" [(visible)]="display" modal="true">
+  <div class='details-grid' >
+    <div class='p-grid' *ngFor='let item of modelData | keyvalue'>
+        <div class='p-col-3' style="word-wrap: break-word;" >{{item.key}} </div>
+        <div class='p-col-1'>:</div>
+        <div class='p-col-8'>{{item.value}}</div>
+       </div>
+  </div>
+</p-dialog>
+

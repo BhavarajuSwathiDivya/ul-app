@@ -1,0 +1,847 @@
+<div class='dashboard-container'><div style="text-align: center; color:#00517d">
+  <h1>Medical Device API Endpoints</h1>
+</div>
+<p-accordion>
+  <p-accordionTab>
+    <p-header>
+      510(K)
+    </p-header>
+    <div>
+      <div class="p-grid">
+        <div class='p-col-8'>
+          <label>Select Zero or multiple fields to search for.</label>
+          
+
+        </div>
+      </div>
+      <div class="p-grid">
+        <div class="p-col-8">
+          <div class='p-grid'>
+            <div class="p-col-6" *ngFor='let field of searchfields["510k"] | keyvalue'>
+              <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                  <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon">
+                      <p-checkbox></p-checkbox>
+                    </span>
+                    <input type="text" pInputText placeholder="{{field.key}}">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="p-col-6">
+              <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                  <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon">
+                      <p-checkbox></p-checkbox>
+                    </span>
+                    <input type="text" pInputText placeholder="address_2">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-col-6">
+              <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                  <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon">
+                      <p-checkbox></p-checkbox>
+                    </span>
+                    <input type="text" pInputText placeholder="advisory_committee">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-col-6">
+              <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                  <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon">
+                      <p-checkbox></p-checkbox>
+                    </span>
+                    <input type="text" pInputText placeholder="advisory_committe_description">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-col-6">
+              <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                  <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon">
+                      <p-checkbox></p-checkbox>
+                    </span>
+                    <input type="text" pInputText placeholder="applicant">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-col-6">
+              <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                  <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon">
+                      <p-checkbox></p-checkbox>
+                    </span>
+                    <input type="text" pInputText placeholder="city">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-col-6">
+              <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                  <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon">
+                      <p-checkbox></p-checkbox>
+                    </span>
+                    <input type="text" pInputText placeholder="country_code">
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <div class="p-col-4">
+          <div class="p-grid">
+            <div class="p-col-12">
+              <label>Select the limit of records (if not selected bydefault you get only one record) </label>
+            </div>
+            <div class="p-col-12">
+              <input type="number" pInputText value='1' />
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="p-grid">
+        <div class="p-col-12">
+          <button pButton type="button" class="ui-button-raised ui-button-secondary" label='Submit'
+            style='float: right;' (click)='showResult=true;'></button>
+        </div>
+      </div>
+    </div>
+    <div class="listview" *ngIf="showResult">
+      <div class='p-grid listitem'>
+        <div class="p-col-10">
+          <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
+          <p>Device-class: 2</p>
+          <p>advisory_committee: Anesthesiology</p>
+          <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
+          <p>city: SALT LAKE CITY</p>
+
+        </div>
+        <div class="p-col-2 list-button">
+          <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
+            label='Full Details'></button>
+        </div>
+      </div>
+      <div class='p-grid listitem'>
+        <div class="p-col-10">
+          <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
+          <p>Device-class: 2</p>
+          <p>advisory_committee: Anesthesiology</p>
+          <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
+          <p>city: SALT LAKE CITY</p>
+
+        </div>
+        <div class="p-col-2 list-button">
+          <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
+            label='Full Details'></button>
+        </div>
+      </div>
+      <div class='p-grid listitem'>
+        <div class="p-col-10">
+          <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
+          <p>Device-class: 2</p>
+          <p>advisory_committee: Anesthesiology</p>
+          <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
+          <p>city: SALT LAKE CITY</p>
+
+        </div>
+        <div class="p-col-2 list-button">
+          <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
+            label='Full Details'></button>
+        </div>
+      </div>
+    </div>
+    <div class='chart' *ngIf='showResult1'>
+      <p-chart type="doughnut" [data]="data"></p-chart>
+    </div>
+  </p-accordionTab>
+  <p-accordionTab>
+    <p-header>
+      Classification
+    </p-header>
+    <div class="p-grid">
+      <div class="p-col-8">
+        <div class='p-grid'>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="address_1">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="address_2">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="advisory_committee">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="advisory_committe_description">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="applicant">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="city">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="country_code">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-col-4">
+        <div class="p-grid">
+          <div class="p-col-12">
+            <label>Select the limit of records (if not selected bydefault you get only one record) </label>
+          </div>
+          <div class="p-col-12">
+            <input type="number" pInputText value='1' />
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="p-grid">
+      <div class="p-col-12">
+        <button pButton type="button" class="ui-button-raised ui-button-secondary" label='Submit'
+          style='float: right;' (click)='showResult=true;'></button>
+      </div>
+    </div>
+    <div class="listview" *ngIf="showResult">
+      <div class='p-grid listitem'>
+        <div class="p-col-10">
+          <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
+          <p>Device-class: 2</p>
+          <p>advisory_committee: Anesthesiology</p>
+          <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
+          <p>city: SALT LAKE CITY</p>
+
+        </div>
+        <div class="p-col-2 list-button">
+          <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
+            label='Full Details'></button>
+        </div>
+      </div>
+      <div class='p-grid listitem'>
+        <div class="p-col-10">
+          <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
+          <p>Device-class: 2</p>
+          <p>advisory_committee: Anesthesiology</p>
+          <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
+          <p>city: SALT LAKE CITY</p>
+
+        </div>
+        <div class="p-col-2 list-button">
+          <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
+            label='Full Details'></button>
+        </div>
+      </div>
+      <div class='p-grid listitem'>
+        <div class="p-col-10">
+          <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
+          <p>Device-class: 2</p>
+          <p>advisory_committee: Anesthesiology</p>
+          <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
+          <p>city: SALT LAKE CITY</p>
+
+        </div>
+        <div class="p-col-2 list-button">
+          <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
+            label='Full Details'></button>
+        </div>
+      </div>
+    </div>
+  </p-accordionTab>
+  <p-accordionTab>
+    <p-header>
+      Recall Enforcement Reports
+    </p-header>
+    <div class="p-grid">
+      <div class="p-col-8">
+        <div class='p-grid'>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="address_1">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="address_2">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="advisory_committee">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="advisory_committe_description">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="applicant">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="city">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="country_code">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-col-4">
+        <div class="p-grid">
+          <div class="p-col-12">
+            <label>Select the limit of records (if not selected bydefault you get only one record) </label>
+          </div>
+          <div class="p-col-12">
+            <input type="number" pInputText value='1' />
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="p-grid">
+      <div class="p-col-12">
+        <button pButton type="button" class="ui-button-raised ui-button-secondary" label='Submit'
+          style='float: right;' (click)='showResult=true;'></button>
+      </div>
+    </div>
+    <div class="listview" *ngIf="showResult">
+      <div class='p-grid listitem'>
+        <div class="p-col-10">
+          <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
+          <p>Device-class: 2</p>
+          <p>advisory_committee: Anesthesiology</p>
+          <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
+          <p>city: SALT LAKE CITY</p>
+
+        </div>
+        <div class="p-col-2 list-button">
+          <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
+            label='Full Details'></button>
+        </div>
+      </div>
+      <div class='p-grid listitem'>
+        <div class="p-col-10">
+          <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
+          <p>Device-class: 2</p>
+          <p>advisory_committee: Anesthesiology</p>
+          <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
+          <p>city: SALT LAKE CITY</p>
+
+        </div>
+        <div class="p-col-2 list-button">
+          <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
+            label='Full Details'></button>
+        </div>
+      </div>
+      <div class='p-grid listitem'>
+        <div class="p-col-10">
+          <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
+          <p>Device-class: 2</p>
+          <p>advisory_committee: Anesthesiology</p>
+          <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
+          <p>city: SALT LAKE CITY</p>
+
+        </div>
+        <div class="p-col-2 list-button">
+          <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
+            label='Full Details'></button>
+        </div>
+      </div>
+    </div>
+  </p-accordionTab>
+  <p-accordionTab>
+    <p-header>
+      Adverse Events
+    </p-header>
+    <div class="p-grid">
+      <div class="p-col-8">
+        <div class='p-grid'>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="address_1">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="address_2">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="advisory_committee">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="advisory_committe_description">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="applicant">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="city">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="country_code">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-col-4">
+        <div class="p-grid">
+          <div class="p-col-12">
+            <label>Select the limit of records (if not selected bydefault you get only one record) </label>
+          </div>
+          <div class="p-col-12">
+            <input type="number" pInputText value='1' />
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="p-grid">
+      <div class="p-col-12">
+        <button pButton type="button" class="ui-button-raised ui-button-secondary" label='Submit'
+          style='float: right;' (click)='showResult=true;'></button>
+      </div>
+    </div>
+    <div class="listview" *ngIf="showResult">
+      <div class='p-grid listitem'>
+        <div class="p-col-10">
+          <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
+          <p>Device-class: 2</p>
+          <p>advisory_committee: Anesthesiology</p>
+          <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
+          <p>city: SALT LAKE CITY</p>
+
+        </div>
+        <div class="p-col-2 list-button">
+          <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
+            label='Full Details'></button>
+        </div>
+      </div>
+      <div class='p-grid listitem'>
+        <div class="p-col-10">
+          <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
+          <p>Device-class: 2</p>
+          <p>advisory_committee: Anesthesiology</p>
+          <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
+          <p>city: SALT LAKE CITY</p>
+
+        </div>
+        <div class="p-col-2 list-button">
+          <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
+            label='Full Details'></button>
+        </div>
+      </div>
+      <div class='p-grid listitem'>
+        <div class="p-col-10">
+          <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
+          <p>Device-class: 2</p>
+          <p>advisory_committee: Anesthesiology</p>
+          <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
+          <p>city: SALT LAKE CITY</p>
+
+        </div>
+        <div class="p-col-2 list-button">
+          <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
+            label='Full Details'></button>
+        </div>
+      </div>
+    </div>
+  </p-accordionTab>
+  <p-accordionTab>
+    <p-header>
+      Pre-market Approvals
+    </p-header>
+    <div class="p-grid">
+      <div class="p-col-8">
+        <div class='p-grid'>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="address_1">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="address_2">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="advisory_committee">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="advisory_committe_description">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="applicant">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="city">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-col-6">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">
+                    <p-checkbox></p-checkbox>
+                  </span>
+                  <input type="text" pInputText placeholder="country_code">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-col-4">
+        <div class="p-grid">
+          <div class="p-col-12">
+            <label>Select the limit of records (if not selected bydefault you get only one record) </label>
+          </div>
+          <div class="p-col-12">
+            <input type="number" pInputText value='1' />
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="p-grid">
+      <div class="p-col-12">
+        <button pButton type="button" class="ui-button-raised ui-button-secondary" label='Submit'
+          style='float: right;' (click)='showResult=true;'></button>
+      </div>
+    </div>
+    <div class="listview" *ngIf="showResult">
+      <div class='p-grid listitem'>
+        <div class="p-col-10">
+          <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
+          <p>Device-class: 2</p>
+          <p>advisory_committee: Anesthesiology</p>
+          <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
+          <p>city: SALT LAKE CITY</p>
+
+        </div>
+        <div class="p-col-2 list-button">
+          <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
+            label='Full Details'></button>
+        </div>
+      </div>
+      <div class='p-grid listitem'>
+        <div class="p-col-10">
+          <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
+          <p>Device-class: 2</p>
+          <p>advisory_committee: Anesthesiology</p>
+          <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
+          <p>city: SALT LAKE CITY</p>
+
+        </div>
+        <div class="p-col-2 list-button">
+          <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
+            label='Full Details'></button>
+        </div>
+      </div>
+      <div class='p-grid listitem'>
+        <div class="p-col-10">
+          <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
+          <p>Device-class: 2</p>
+          <p>advisory_committee: Anesthesiology</p>
+          <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
+          <p>city: SALT LAKE CITY</p>
+
+        </div>
+        <div class="p-col-2 list-button">
+          <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
+            label='Full Details'></button>
+        </div>
+      </div>
+    </div>
+  </p-accordionTab>
+</p-accordion>
+</div>
+<p-dialog header="Full Details" [(visible)]="display" modal="true">
+  <div class='details-grid' style="margin:auto">
+    <p>third_party_flag : N</p>
+    <p>city : SALT LAKE CITY</p>
+    <p>
+      advisory_committee_description : Anesthesiology</p>
+    <p>
+      address_1 : 4659 SOUTH, 2300 EAST #203</p>
+    <p>
+      address_2 : --</p>
+    <p>
+      statement_or_summary : Summary</p>
+    <p>
+      product_code : CBK</p>
+    <p>
+      zip_code: 84117</p>
+    <p>
+      applicant : PROVIDENCE GLOBAL MEDICAL, INC.</p>
+    <p>
+      decision_code : SESE</p>
+    <p>
+      decision_date : 2009-12-17</p>
+    <p>
+      country_code : US</p>
+    <p>
+      device_name : ATLANTIS HYPERBARIC CHAMBER VENTILATOR</p>
+    <p>
+      advisory_committee : AN</p>
+    <p>
+      expedited_review_flag : --</p>
+    <p>
+      contact : HELEN REDD</p>
+    <p>
+      state : UT</p>
+    <p>
+      review_advisory_committee : AN</p>
+    <p>
+      k_number : K092264</p>
+    <p>
+      date_received : 2009-07-28</p>
+    <p>
+      postal_code : 84117</p>
+    <p>
+      clearance_type : Traditional</p>
+    <p>
+      decision_description : Substantially Equivalent</p>
+
+  </div>
+</p-dialog>

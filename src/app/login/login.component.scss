@@ -1,0 +1,43 @@
+.login-container {
+  width: 50%;
+  margin: auto;
+  margin-top:10%;
+  min-width: 250px;
+  min-height: 300px;
+  padding: 30px 0;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  //background:linear-gradient(to bottom right, #00000094 calc(45% - 1px), #aaa, #fafbfc calc(50% + 1px));
+  background: linear-gradient(to bottom right, #c02032 calc(45% - 1px), #f6b6b6, #fafbfc calc(50% + 1px));
+
+  .ui-fluid {
+    .fa {
+      color: #c02032;
+    }
+  }
+  .logo{
+    text-align:center;
+    margin-bottom:10px;
+  }
+
+  ::ng-deep {
+    .login-block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .ui-button:enabled:hover {
+        //background-color: #000000ab;
+        border: 1px solid #941927;
+        background-color: #941927;
+        //border-color: #941927;
+      }
+
+      .ui-button {
+        //background-color: #000000bf;
+        background-color: #c02032;
+        border: 1px solid #c02032;
+        ;
+      }
+    }
+  }
+}
