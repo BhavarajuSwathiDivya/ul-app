@@ -15,6 +15,9 @@ import {MenuModule} from 'primeng/menu';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import {PasswordModule} from 'primeng/password';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MessageModule,
+  Message,DataTableModule} from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -46,7 +49,10 @@ import { ErrorInterceptor} from './_helper/error.interceptor';
     ChartModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule,MenuModule, PasswordModule
+    HttpClientModule,MenuModule, PasswordModule,
+    ReactiveFormsModule,
+    MessageModule,
+    DataTableModule
   ],
 providers: [],
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

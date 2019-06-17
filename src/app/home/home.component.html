@@ -27,7 +27,7 @@
                 <span class="ui-inputgroup-addon">
                   <p-checkbox [(ngModel)]="selectedInputs[i]" binary="false" (onChange)="selectedInput.value = '';searchablefields[field]='';"></p-checkbox>
                 </span>
-                <input type="text" [disabled]="!selectedInputs[i]" #selectedInput pInputText placeholder="{{field}}" (input)="queryFields($event,field)">
+                <input type="text" [disabled]="!selectedInputs[i]" #selectedInput pInputText placeholder="{{field.name}}" (input)="queryFields($event,field.name)">
               </div>
             </div>
           </div>
@@ -66,45 +66,22 @@
             (click)="showDialog(record)" label='Full Details'></button>
         </div>
       </div>
-      <!-- <div class='p-grid listitem'>
-          <div class="p-col-10">
-            <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
-            <p>Device-class: 2</p>
-            <p>advisory_committee: Anesthesiology</p>
-            <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
-            <p>city: SALT LAKE CITY</p>
-  
-          </div>
-          <div class="p-col-2 list-button">
-            <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
-              label='Full Details'></button>
-          </div>
-        </div>
-        <div class='p-grid listitem'>
-          <div class="p-col-10">
-            <h3>Device-name: ATLANTIS HYPERBARIC CHAMBER VENTILATOR</h3>
-            <p>Device-class: 2</p>
-            <p>advisory_committee: Anesthesiology</p>
-            <p>applicant: PROVIDENCE GLOBAL MEDICAL, INC.</p>
-            <p>city: SALT LAKE CITY</p>
-  
-          </div>
-          <div class="p-col-2 list-button">
-            <button pButton type="button" class="ui-button ui-button-raised ui-button-primary" (click)="showDialog()"
-              label='Full Details'></button>
-          </div>
-        </div> -->
     </div>
   </div>
 
 </div>
 <p-dialog header="Full Details" [(visible)]="display" modal="true">
   <div class='details-grid' >
-    <div class='p-grid' *ngFor='let item of modelData | keyvalue'>
+      <p-dataTable [value]="transactions">
+          <p-column field="date" header="Date" [sortable]="true"></p-column>
+          <p-column field="label" header="Label" [sortable]="true"></p-column>
+          <p-column field="amount" header="Amount" [sortable]="true"></p-column>
+        </p-dataTable>
+    <!-- <div class='p-grid' *ngFor='let item of modelData | keyvalue'>
         <div class='p-col-3' style="word-wrap: break-word;" >{{item.key}} </div>
         <div class='p-col-1'>:</div>
         <div class='p-col-8'>{{item.value}}</div>
-       </div>
+       </div> -->
   </div>
 </p-dialog>
 

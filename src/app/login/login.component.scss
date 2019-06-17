@@ -7,11 +7,11 @@
   padding: 30px 0;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
   //background:linear-gradient(to bottom right, #00000094 calc(45% - 1px), #aaa, #fafbfc calc(50% + 1px));
-  background: linear-gradient(to bottom right, #c02032 calc(45% - 1px), #f6b6b6, #fafbfc calc(50% + 1px));
+  background: linear-gradient(to bottom right, #02126a calc(45% - 1px), #3f51b56e, #fafbfc calc(50% + 1px));
 
   .ui-fluid {
     .fa {
-      color: #c02032;
+      color: #02126a;
     }
   }
   .logo{
@@ -27,15 +27,15 @@
 
       .ui-button:enabled:hover {
         //background-color: #000000ab;
-        border: 1px solid #941927;
-        background-color: #941927;
+        border: 1px solid #031993;
+        background-color: #031993;
         //border-color: #941927;
       }
 
       .ui-button {
         //background-color: #000000bf;
-        background-color: #c02032;
-        border: 1px solid #c02032;
+        background-color: #02126a;
+        border: 1px solid #02126a;
         ;
       }
     }
