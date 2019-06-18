@@ -18,6 +18,7 @@ import {PasswordModule} from 'primeng/password';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MessageModule,
   Message,DataTableModule} from 'primeng/primeng';
+  import {TableModule} from 'primeng/table';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -27,7 +28,7 @@ import { HeaderComponent } from './header/header.component';
 
 import { JwtInterceptor } from './_helper/jwt.interceptor';
 import { ErrorInterceptor} from './_helper/error.interceptor';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +53,9 @@ import { ErrorInterceptor} from './_helper/error.interceptor';
     HttpClientModule,MenuModule, PasswordModule,
     ReactiveFormsModule,
     MessageModule,
-    DataTableModule
+    DataTableModule,
+    TableModule,
+    NgbModule
   ],
 providers: [],
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

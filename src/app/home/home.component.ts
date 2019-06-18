@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  providers: [NgbDropdownConfig]
 })
 export class HomeComponent implements OnInit {
 
@@ -21,17 +23,30 @@ export class HomeComponent implements OnInit {
   recordsError = '';
   modelData = {};
   data: any = '';
+  skip : number;
+  limit: number;
   transactions: {
     date: Date,
     label: string,
     amount: number
   }[];
   categoriesArray = [];
-
-
-  constructor(private httpService: HttpClient) { }
+  displayTableHeader = [];
+  tableData = [];
+  tableHeader = [];
+  count : number;
+  showTable: boolean;
+  loading: boolean;
+  constructor(private httpService: HttpClient, config: NgbDropdownConfig) {
+    config.autoClose = false;
+   }
 
   ngOnInit() {
+    this.count = 0;
+    this.skip = 0;
+    this.limit = 100;
+    this.showTable = false;
+    this.loading = true;
     this.data = {
       "regulatories": [
         {
@@ -906,6 +921,9 @@ export class HomeComponent implements OnInit {
         amount: 130
       }
     ];
+    
+
+    
   }
 
   getCategories(regulatory) {
@@ -953,18 +971,55 @@ export class HomeComponent implements OnInit {
   queryFields(event, field) {
     this.searchablefields[field] = event.target.value;
   }
-  getResponse(limit) {
-    let url = this.constructSearchQuery(limit);
+  getResponse(event) {
+    let url = this.constructSearchQuery();
     this.httpService.get(url).subscribe((data: any) => {
       this.recordsArray = data.results;
+      this.initialiseTableData(event);
     }, (err) => {
       this.recordsError = err.error.error.message;
     });
   }
-  constructSearchQuery(limit) {
+  getData(){
+    let countUrl = this.constructorCountQuery();
+    this.recordsError="";
+    this.recordsArray=[];
+    this.showTable = true;
+    this.httpService.get(countUrl).subscribe((data:any)=>{
+      this.count = data.results[0].count;
+    });
+  }
+  loadLazy(event){
+    this.skip = event.first;
+    this.loading = true;
+    this.getResponse(event);
+  }
+  initialiseTableData(event){  
+    this.tableHeader = this.searchfields.map(o => o["name"]);
+    this.displayTableHeader = this.tableHeader.slice(0,5);
+    
+    if(event.sortField && event.sortOrder === 1){
+      this.recordsArray.sort((a,b) => (a[event.sortField] > b[event.sortField]) ? 1 : ((b[event.sortField] > a[event.sortField]) ? -1 : 0)); 
+    }
+    if(event.sortField && event.sortOrder === -1){
+      this.recordsArray.sort((a,b) => (b[event.sortField] > a[event.sortField]) ? 1 : ((a[event.sortField] > b[event.sortField]) ? -1 : 0)); 
+    }
+    this.loading = false;
+  }
+
+  updateTableData(headerValue){
+    let indexofValue = this.displayTableHeader.indexOf(headerValue);
+    if(indexofValue!==-1){
+      this.displayTableHeader.splice(indexofValue,1);
+    }else{
+      this.displayTableHeader.push(headerValue);
+    }
+  }
+  constructSearchQuery() {
     let keys = Object.keys(this.searchablefields);
     let searchTerms = '';
     let url = '';
+    let skip = this.skip;
     if (keys) {
       keys.forEach((key, index) => {
         if (index === keys.length - 1 && this.searchablefields[key]) {
@@ -975,10 +1030,35 @@ export class HomeComponent implements OnInit {
       });
     }
     if (searchTerms) {
-      return url = `${this.apiUrl}?search=${searchTerms}&limit=${limit}`;
+      return url = `${this.apiUrl}?search=${searchTerms}&limit=${this.limit}&skip=${skip}`;
     }
     else {
-      return url = `${this.apiUrl}?limit=${limit}`;
+      return url = `${this.apiUrl}?limit=${this.limit}&skip=${skip}`;
     }
+    
   }
+
+  constructorCountQuery(){
+    let keys = Object.keys(this.searchablefields);
+    let searchTerms = '';
+    let url = '';
+    if (keys) {
+      keys.forEach((key, index) => {
+        if (index === keys.length - 1 && this.searchablefields[key]) {
+          searchTerms += `${key}:${this.searchablefields[key]}&count=${key}`;
+        } else if (this.searchablefields[key]) {
+          searchTerms += `${key}:${this.searchablefields[key]}+AND+`;
+        }
+      });
+    }
+    this.skip = this.skip;
+    if (searchTerms) {
+      return url = `${this.apiUrl}?search=${searchTerms}`;
+    }
+    else {
+      return url = `${this.apiUrl}?count=`;
+    }
+    
+  }
+  
 }
