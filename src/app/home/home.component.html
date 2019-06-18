@@ -40,8 +40,11 @@
     </div>
     <div class="p-col-12">
       <div class="p-grid">
-        <div class="p-col-8">
-          <label>By default you get 100 record </label>
+        <div class="p-col-4">
+          <label>Number of records per page </label>
+        </div>
+        <div class="p-col-4">
+          <input type="text" pInputText [(ngModel)]=limit>
         </div>
         <div class="p-col-4">
           <button pButton type="button" class="ui-button-raised ui-button-primary" label='Submit' style='float: right;'
@@ -63,7 +66,7 @@
         </div>
       </div>
 
-      <p-table [value]="recordsArray" [loading]="loading" [lazy]="true" (onLazyLoad)="loadLazy($event)" [totalRecords]="count" [responsive]="true" [scrollable]="true" [paginator]="true" [rows]="100" >
+      <p-table [value]="recordsArray" #Table [loading]="loading" [lazy]="true" (onLazyLoad)="loadLazy($event)" [totalRecords]="count" [responsive]="true" [scrollable]="true" [paginator]="true" [rows]="limit" >
         <ng-template pTemplate="header">
           <tr>
             <th *ngFor="let header of displayTableHeader"  [pSortableColumn]="header">{{header}}

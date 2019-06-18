@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
+import {Table} from 'primeng/components/table/table';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,8 @@ import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
   providers: [NgbDropdownConfig]
 })
 export class HomeComponent implements OnInit {
+
+  @ViewChild("Table") tableComponent: Table;
 
   regulatories = [];
   categories = [];
@@ -44,7 +47,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.count = 0;
     this.skip = 0;
-    this.limit = 100;
+    this.limit = 10;
     this.showTable = false;
     this.loading = true;
     this.data = {
@@ -984,10 +987,14 @@ export class HomeComponent implements OnInit {
     let countUrl = this.constructorCountQuery();
     this.recordsError="";
     this.recordsArray=[];
-    this.showTable = true;
     this.httpService.get(countUrl).subscribe((data:any)=>{
       this.count = data.results[0].count;
     });
+    
+    this.showTable = true;
+    if(this.tableComponent){   
+      this.tableComponent.reset();
+    }
   }
   loadLazy(event){
     this.skip = event.first;
