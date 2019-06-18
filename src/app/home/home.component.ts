@@ -978,18 +978,15 @@ export class HomeComponent implements OnInit {
     let url = this.constructSearchQuery();
     this.httpService.get(url).subscribe((data: any) => {
       this.recordsArray = data.results;
+      this.count = data.meta.results.total;
       this.initialiseTableData(event);
     }, (err) => {
       this.recordsError = err.error.error.message;
     });
   }
   getData(){
-    let countUrl = this.constructorCountQuery();
     this.recordsError="";
     this.recordsArray=[];
-    this.httpService.get(countUrl).subscribe((data:any)=>{
-      this.count = data.results[0].count;
-    });
     
     this.showTable = true;
     if(this.tableComponent){   
@@ -1022,6 +1019,7 @@ export class HomeComponent implements OnInit {
       this.displayTableHeader.push(headerValue);
     }
   }
+  
   constructSearchQuery() {
     let keys = Object.keys(this.searchablefields);
     let searchTerms = '';
@@ -1041,29 +1039,6 @@ export class HomeComponent implements OnInit {
     }
     else {
       return url = `${this.apiUrl}?limit=${this.limit}&skip=${skip}`;
-    }
-    
-  }
-
-  constructorCountQuery(){
-    let keys = Object.keys(this.searchablefields);
-    let searchTerms = '';
-    let url = '';
-    if (keys) {
-      keys.forEach((key, index) => {
-        if (index === keys.length - 1 && this.searchablefields[key]) {
-          searchTerms += `${key}:${this.searchablefields[key]}&count=${key}`;
-        } else if (this.searchablefields[key]) {
-          searchTerms += `${key}:${this.searchablefields[key]}+AND+`;
-        }
-      });
-    }
-    this.skip = this.skip;
-    if (searchTerms) {
-      return url = `${this.apiUrl}?search=${searchTerms}`;
-    }
-    else {
-      return url = `${this.apiUrl}?count=`;
     }
     
   }
