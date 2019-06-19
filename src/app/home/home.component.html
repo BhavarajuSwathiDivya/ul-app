@@ -152,14 +152,21 @@
         [totalRecords]="count" [responsive]="true" [scrollable]="true" [paginator]="true" [rows]="limit">
         <ng-template pTemplate="header">
           <tr>
-            <th *ngFor="let header of displayTableHeader" [pSortableColumn]="header">{{header}}
-              <p-sortIcon [field]="header"></p-sortIcon>
+            <th *ngFor="let header of displayTableHeader"  [pSortableColumn]="header">{{header | titlecase}}
+                <p-sortIcon [field]="header"></p-sortIcon>
             </th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-device>
           <tr>
-            <td *ngFor="let header of displayTableHeader">{{device[header]}}</td>
+            <td *ngFor="let header of displayTableHeader">
+              <div *ngIf="header.split('.').shift()!=='openfda'">
+                  {{device[header]}} 
+              </div>
+              <div *ngIf="header.split('.').shift()==='openfda'">
+                  {{device['openfda'][header.split(".").pop()]}}
+              </div>
+            </td>
           </tr>
         </ng-template>
       </p-table>

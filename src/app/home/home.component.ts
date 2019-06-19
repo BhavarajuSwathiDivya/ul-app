@@ -1061,6 +1061,7 @@ export class HomeComponent implements OnInit {
   getData(){
     this.recordsError="";
     this.recordsArray=[];
+    
     this.showTable = true;
     if(this.tableComponent){   
       this.tableComponent.reset();
@@ -1092,6 +1093,7 @@ export class HomeComponent implements OnInit {
       this.displayTableHeader.push(headerValue);
     }
   }
+  
   constructSearchQuery() {
     let keys = Object.keys(this.searchablefields);
     let searchTerms = '';
@@ -1107,10 +1109,10 @@ export class HomeComponent implements OnInit {
       });
     }
     if (searchTerms) {
-      return url = `https://api.fda.gov${this.regulatoryApiUrl}?search=${searchTerms}&limit=${this.limit}&skip=${skip}`;
+      return url = `${this.regulatoryApiUrl}?search=${searchTerms}&limit=${this.limit}&skip=${skip}`;
     }
     else {
-      return url = `https://api.fda.gov${this.regulatoryApiUrl}?limit=${this.limit}&skip=${skip}`;
+      return url = `${this.regulatoryApiUrl}?limit=${this.limit}&skip=${skip}`;
     }
     
   }
