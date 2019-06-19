@@ -174,4 +174,18 @@
     display: none;
   }
 
+  .appendHeaderList{
+    padding: .25rem 1.5rem;
+  }
+  
+  .separater{
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid gainsboro;
+  }
+
+  .resetDropdownList{
+    padding: 0rem;
+    float: right;
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient,HttpBackend } from '@angular/common/http';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
 import {Table} from 'primeng/components/table/table';
@@ -13,6 +13,7 @@ import { apiUrl } from '../globals';
 export class HomeComponent implements OnInit {
 
   @ViewChild("Table") tableComponent: Table;
+  @ViewChild("selectAllHeader") selectAllHeader: ElementRef;
 
   regulatories = [];
   categories = [];
@@ -1074,7 +1075,7 @@ export class HomeComponent implements OnInit {
   }
   initialiseTableData(event){  
     this.tableHeader = this.searchfields.map(o => o["name"]);
-    this.displayTableHeader = this.tableHeader.slice(0,5);
+    this.displayTableHeader = this.returnMandatoryTableHeader();
     
     if(event.sortField && event.sortOrder === 1){
       this.recordsArray.sort((a,b) => (a[event.sortField] > b[event.sortField]) ? 1 : ((b[event.sortField] > a[event.sortField]) ? -1 : 0)); 
@@ -1083,6 +1084,17 @@ export class HomeComponent implements OnInit {
       this.recordsArray.sort((a,b) => (b[event.sortField] > a[event.sortField]) ? 1 : ((a[event.sortField] > b[event.sortField]) ? -1 : 0)); 
     }
     this.loading = false;
+  }
+
+  returnMandatoryTableHeader(){
+    let fields = [];
+    this.searchfields.forEach((n)=>{
+      console.log(typeof n["mandatory"]);
+      if(n["mandatory"] !== "false"){
+        fields.push( n["name"]);
+      }
+    });
+    return fields;
   }
 
   updateTableData(headerValue){
@@ -1109,12 +1121,25 @@ export class HomeComponent implements OnInit {
       });
     }
     if (searchTerms) {
-      return url = `${this.regulatoryApiUrl}?search=${searchTerms}&limit=${this.limit}&skip=${skip}`;
+      return url = `https://api.fda.gov${this.regulatoryApiUrl}?search=${searchTerms}&limit=${this.limit}&skip=${skip}`;
     }
     else {
-      return url = `${this.regulatoryApiUrl}?limit=${this.limit}&skip=${skip}`;
+      return url = `https://api.fda.gov${this.regulatoryApiUrl}?limit=${this.limit}&skip=${skip}`;
     }
     
   }
+
+  selectAllColumns(obj){
+    if(obj.target.checked){
+      this.displayTableHeader = this.tableHeader;
+    }else{
+      this.displayTableHeader = [];
+    }
+  }
   
+  resetHeaders(){
+    this.displayTableHeader = this.returnMandatoryTableHeader();
+    this.selectAllHeader.nativeElement.checked = false;
+
+  }
 }

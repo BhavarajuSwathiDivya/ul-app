@@ -44,7 +44,7 @@
                 </ng-container>
               </div>
             </div>
-            <div class="p-col-12">
+            <div class="p-col-12 separater">
               <div class="p-grid">
                 <div class="p-col-4">
                   <label>Number of records per page </label>
@@ -81,7 +81,7 @@
                 </div>
               </div>
             </div>
-            <div class="p-col-12">
+            <div class="p-col-12 separater">
               <div class="p-grid">
                 <div class="p-col-4">
                   <label>Number of records per page </label>
@@ -142,9 +142,14 @@
       <div ngbDropdown class="dropdown">
         <i class="fa fa-columns" title="show/hide columns" id="dropdowndata" ngbDropdownToggle></i>
         <div ngbDropdownMenu aria-labelledby="dropdowndata">
+            <div class="appendHeaderList">
+                  <input type="checkbox" (change)="selectAllColumns($event)" value="selectall" #selectAllHeader>
+                  <button type="button" (click)="resetHeaders()" class="btn btn-link resetDropdownList">Reset</button>
+            </div>
           <a ngbDropdownItem href="#" *ngFor="let header of tableHeader">
             <input type="checkbox" name="headerNames" (change)="updateTableData(header)"
-              [checked]="displayTableHeader.indexOf(header)!==-1" value="{{header}}">{{header}}</a>
+              [checked]="displayTableHeader.indexOf(header)!==-1" value="{{header}}">{{header}}
+            </a>
         </div>
       </div>
 
