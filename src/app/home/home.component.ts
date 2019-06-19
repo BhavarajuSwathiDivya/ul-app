@@ -88,6 +88,8 @@ export class HomeComponent implements OnInit {
     this.searchablefields = {};
     this.endpointsArray = [];
     this.categories = [];
+    this.showTable = false;
+    this.recordsError= "";
     this.data.regulatories.forEach((eachItem) => {
       if (eachItem.regulatory === regulatory)
         eachItem.categories.forEach((item) => {
@@ -100,6 +102,8 @@ export class HomeComponent implements OnInit {
     this.searchablefields = {};
     this.endpoints = [];
     this.searchfields = [];
+    this.showTable = false;
+    this.recordsError= "";
     this.categoriesArray.forEach((endpointAPI) => {
       if (endpointAPI.api_name === category) {
         endpointAPI.end_points.forEach((apiname) => {
@@ -113,6 +117,8 @@ export class HomeComponent implements OnInit {
   getSearchableFields(selectedendpoint) {
     this.searchablefields = {};
     this.recordsArray = [];
+    this.showTable = false;
+    this.recordsError= "";
     this.endpointsArray.forEach((endpointAPI) => {
       if (endpointAPI.name === selectedendpoint) {
         this.searchfields = endpointAPI["search_fields"];
@@ -136,8 +142,8 @@ export class HomeComponent implements OnInit {
       this.count = data.meta.results.total;
       this.initialiseTableData(event);
     }, (err) => {
-      this.showTable =false;
-      this.recordsError = err.error.error.message;
+      this.recordsError = "Something went wrong please try again later.";
+      this.showTable = false;
     });
   }
   getData(){
@@ -150,7 +156,7 @@ export class HomeComponent implements OnInit {
   }
   loadLazy(event){
     this.skip = event.first;
-    this.loading = true;
+    //this.loading = true;
     this.getResponse(event);
   }
   initialiseTableData(event){  
@@ -169,9 +175,8 @@ export class HomeComponent implements OnInit {
   returnMandatoryTableHeader(){
     let fields = [];
     this.searchfields.forEach((n)=>{
-      console.log(typeof n["mandatory"]);
-      if(n["mandatory"] !== "false"){
-        fields.push( n["name"]);
+      if(n["mandatory"]){
+        fields.push(n["name"]);
       }
     });
     return fields;
@@ -226,6 +231,9 @@ export class HomeComponent implements OnInit {
   resetHeaders(){
     this.displayTableHeader = this.returnMandatoryTableHeader();
     this.selectAllHeader.nativeElement.checked = false;
+  }
 
+  typeOfData(val) {
+    return typeof val;
   }
 }
