@@ -24,7 +24,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
+      .ui-inputgroup {.ui-inputgroup-addon:first-child{ padding:4px;}}
       .ui-button:enabled:hover {
         //background-color: #000000ab;
         border: 1px solid #031993;

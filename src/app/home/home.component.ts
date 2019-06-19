@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpBackend } from '@angular/common/http';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
 import {Table} from 'primeng/components/table/table';
+import { apiUrl } from '../globals';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,7 @@ export class HomeComponent implements OnInit {
   display = false;
   selectedInputs = [];
   searchablefields = {};
-  apiUrl = '';
+  regulatoryApiUrl = '';
   recordsArray = [];
   recordsError = '';
   modelData = {};
@@ -40,8 +41,10 @@ export class HomeComponent implements OnInit {
   count : number;
   showTable: boolean;
   loading: boolean;
-  constructor(private httpService: HttpClient, config: NgbDropdownConfig) {
+  constructor(private httpService: HttpClient, private httpClient: HttpClient, handler: HttpBackend,config: NgbDropdownConfig) {
     config.autoClose = false;
+    this.httpClient = new HttpClient(handler);
+  
    }
 
   ngOnInit() {
@@ -64,67 +67,77 @@ export class HomeComponent implements OnInit {
                   "search_fields": [
                     {
                       "name": "animal.age.max",
-                      "type": "float"
+                      "type": "float",
+                      "mandatory":"true"
                     },
                     {
                       "name": "animal.age.min",
-                      "type": "float"
+                      "type": "float",
+                      "mandatory":"true"
                     },
                     {
                       "name": "animal.age.unit",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "animal.age.unit",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "administered_by",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "atc_vet_code",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "brand_name",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "first_exposure_date",
-                      "type": "date"
+                      "type": "date",
+                      "mandatory":"false"
                     },
                     {
                       "name": "last_exposure_date",
-                      "type": "date"
+                      "type": "date",
+                      "mandatory":"false"
                     },
                     {
                       "name": "lot_expiration",
-                      "type": "date"
+                      "type": "date",
+                      "mandatory":"false"
                     },
                     {
                       "name": "manufacturing_date",
-                      "type": "date"
+                      "type": "date","mandatory":"false"
                     },
                     {
                       "name": "number_of_defective_items",
-                      "type": "int"
+                      "type": "int","mandatory":"false"
                     },
                     {
                       "name": "number_of_items_returned",
-                      "type": "int"
+                      "type": "int","mandatory":"false"
                     },
                     {
                       "name": "off_label_use",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "product_ndc",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "route",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     }
                   ]
                 }
@@ -139,35 +152,37 @@ export class HomeComponent implements OnInit {
                   "search_fields": [
                     {
                       "name": "authoritynumb",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "companynumb",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "occurcountry",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "primarysourcecountry",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "receiptdate",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "safetyreportid",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "receivedate",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "transmissiondate",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     }
                   ]
                 },
@@ -177,51 +192,53 @@ export class HomeComponent implements OnInit {
                   "search_fields": [
                     {
                       "name": "id",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "set_id",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "version",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "openfda.application_number",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "openfda.nui",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "openfda.product_ndc",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "openfda.product_type",
-                      "type": "String"
-                    },
-                    {
-                      "name": "openfda.product_type",
-                      "type": "String"
-                    },
-                    {
-                      "name": "openfda.product_type",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "openfda.spl_id",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "openfda.unii",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "openfda.upc",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     }
                   ]
                 },
@@ -231,55 +248,68 @@ export class HomeComponent implements OnInit {
                   "search_fields": [
                     {
                       "name": "product_id",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "spl_id",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "marketing_start_date",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "marketing_end_date",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "marketing_category",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "application_number",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "packaging.package_ndc",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "packaging.marketing_start_date",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "packaging.marketing_end_date",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "openfda.nui",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "openfda.spl_set_id",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "openfda.unii",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "openfda.upc",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     }
                   ]
                 },
@@ -289,43 +319,53 @@ export class HomeComponent implements OnInit {
                   "search_fields": [
                     {
                       "name": "code_info",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "country",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "event_id",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "product_code",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "recall_initiation_date",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "recall_number",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "recalling_firm",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "report_date",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "termination_date",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "termination_date",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     }
                   ]
                 }
@@ -340,87 +380,105 @@ export class HomeComponent implements OnInit {
                   "search_fields": [
                     {
                       "name": "advisory_committee",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "applicant",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "clearance_type",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "contact",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "country_code",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "date_received",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "decision_code",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "decision_date",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "device_name",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "expedited_review_flag",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "k_number",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "product_code",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "review_advisory_committee",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "state",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "statement_or_summary",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "third_party_flag",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "openfda.device_class",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "openfda.device_name",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"false"
                     },
                     {
                       "name": "openfda.fei_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.registration_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.regulation_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     }
                   ]
                 },
@@ -430,51 +488,54 @@ export class HomeComponent implements OnInit {
                   "search_fields": [
                     {
                       "name": "device_class",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "device_name",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "gmp_exempt_flag",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "implant_flag",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "life_sustain_support_flag",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "medical_specialty",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "product_code",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "regulation_number",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "review_code",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "submission_type_id",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.fei_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.registration_number",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     }
                   ]
                 },
@@ -484,91 +545,89 @@ export class HomeComponent implements OnInit {
                   "search_fields": [
                     {
                       "name": "center_classification_date",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "country",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "distribution_pattern",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "event_id",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "product_code",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "product_quantity",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "recall_initiation_date",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "recall_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "report_date",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "status",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "termination_date",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "voluntary_mandated",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.application_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.nui",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.original_packager_product_ndc",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.package_ndc",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.pharm_class_cs",
-                      "type": "String"
-                    },
-                    {
-                      "name": "openfda.pharm_class_cs",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.pharm_class_moa",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.pharm_class_pe",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.product_ndc",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "openfda.spl_id",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     }
                   ]
                 },
@@ -578,51 +637,52 @@ export class HomeComponent implements OnInit {
                   "search_fields": [
                     {
                       "name": "adverse_event_flag",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "date_manufacturer_received",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "date_of_event",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "date_received",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "date_report",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "date_report_to_fda",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "event_key",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "manufacturer_country",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "mdr_report_key",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "report_date",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "report_number",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "report_to_fda",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     }
                   ]
                 },
@@ -632,43 +692,46 @@ export class HomeComponent implements OnInit {
                   "search_fields": [
                     {
                       "name": "advisory_committee",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "date_received",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "decision_code",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "docket_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "pma_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "product_code",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "supplement_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.fei_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.registration_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.regulation_number",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     }
                   ]
                 },
@@ -678,35 +741,38 @@ export class HomeComponent implements OnInit {
                   "search_fields": [
                     {
                       "name": "firm_fei_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "k_numbers",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "product_code",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "product_res_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "res_event_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.fei_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.registration_number",
-                      "type": "String"
+                      "type": "String",
+                      "mandatory":"true"
                     },
                     {
                       "name": "openfda.regulation_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     }
                   ]
                 },
@@ -716,27 +782,27 @@ export class HomeComponent implements OnInit {
                   "search_fields": [
                     {
                       "name": "k_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "pma_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "registration.fei_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "registration.iso_country_code",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "registration.reg_expiry_date_year",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "registration.registration_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     }
                   ]
                 },
@@ -746,27 +812,27 @@ export class HomeComponent implements OnInit {
                   "search_fields": [
                     {
                       "name": "catalog_number",
-                      "type": "String"
+                      "type": "String","mandatory":"true"
                     },
                     {
                       "name": "device_count_in_base_package",
-                      "type": "int"
+                      "type": "int","mandatory":"false"
                     },
                     {
                       "name": "public_version_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "record_key",
-                      "type": "String"
+                      "type": "String","mandatory":"true"
                     },
                     {
                       "name": "record_status",
-                      "type": "String"
+                      "type": "String","mandatory":"true"
                     },
                     {
                       "name": "version_or_model_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     }
                   ]
                 }
@@ -781,55 +847,55 @@ export class HomeComponent implements OnInit {
                   "search_fields": [
                     {
                       "name": "center_classification_date",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "country",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "event_id",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "product_code",
-                      "type": "String"
+                      "type": "String","mandatory":"true"
                     },
                     {
                       "name": "recall_initiation_date",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "recall_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "status",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "termination_date",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.application_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.product_ndc",
-                      "type": "String"
+                      "type": "String","mandatory":"true"
                     },
                     {
                       "name": "openfda.spl_id",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.unii",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "openfda.upc",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     }
                   ]
                 },
@@ -839,23 +905,23 @@ export class HomeComponent implements OnInit {
                   "search_fields": [
                     {
                       "name": "date_created",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "date_started",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "report_number",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "products",
-                      "type": "String"
+                      "type": "String","mandatory":"true"
                     },
                     {
                       "name": "outcomes",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     }
                   ]
                 }
@@ -870,31 +936,31 @@ export class HomeComponent implements OnInit {
                   "search_fields": [
                     {
                       "name": "package_ndc",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "package_ndc11",
-                      "type": "String"
+                      "type": "String","mandatory":"true"
                     },
                     {
                       "name": "proprietary_name",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "product_type",
-                      "type": "String"
+                      "type": "String","mandatory":"true"
                     },
                     {
                       "name": "marketing_start_date",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "marketing_end_date",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     },
                     {
                       "name": "billing_unit",
-                      "type": "String"
+                      "type": "String","mandatory":"false"
                     }
                   ]
                 }
@@ -903,7 +969,15 @@ export class HomeComponent implements OnInit {
           ]
         }
       ]
-    };
+    }
+    // this.httpService.get(`${apiUrl}/auth/filters`).subscribe((data: any) => {
+    //     this.data = data;
+    //     this.data.regulatories.forEach((eachItem) => {
+    //       this.regulatories.push({ "label": eachItem.regulatory, "value": eachItem.regulatory })
+    //     });
+    //   }, (err) => {
+    //     this.recordsError = err.error.error.message;
+    // });
     this.data.regulatories.forEach((eachItem) => {
       this.regulatories.push({ "label": eachItem.regulatory, "value": eachItem.regulatory })
     });
@@ -961,10 +1035,10 @@ export class HomeComponent implements OnInit {
     this.endpointsArray.forEach((endpointAPI) => {
       if (endpointAPI.name === selectedendpoint) {
         this.searchfields = endpointAPI["search_fields"];
-        this.apiUrl = `https://api.fda.gov${endpointAPI.uri}`;
+        this.regulatoryApiUrl = endpointAPI.uri;
       }
     });
-    // this.setapiUrl(event);
+    // this.setregulatoryApiUrl(event);
   }
 
   showDialog(record) {
@@ -974,23 +1048,19 @@ export class HomeComponent implements OnInit {
   queryFields(event, field) {
     this.searchablefields[field] = event.target.value;
   }
-  getResponse(event) {
+  getResponse(limit) {
     let url = this.constructSearchQuery();
-    this.httpService.get(url).subscribe((data: any) => {
+    this.httpClient.get(url).subscribe((data: any) => {
       this.recordsArray = data.results;
+      this.count = data.meta.results.total;
       this.initialiseTableData(event);
     }, (err) => {
       this.recordsError = err.error.error.message;
     });
   }
   getData(){
-    let countUrl = this.constructorCountQuery();
     this.recordsError="";
     this.recordsArray=[];
-    this.httpService.get(countUrl).subscribe((data:any)=>{
-      this.count = data.results[0].count;
-    });
-    
     this.showTable = true;
     if(this.tableComponent){   
       this.tableComponent.reset();
@@ -1037,33 +1107,10 @@ export class HomeComponent implements OnInit {
       });
     }
     if (searchTerms) {
-      return url = `${this.apiUrl}?search=${searchTerms}&limit=${this.limit}&skip=${skip}`;
+      return url = `https://api.fda.gov${this.regulatoryApiUrl}?search=${searchTerms}&limit=${this.limit}&skip=${skip}`;
     }
     else {
-      return url = `${this.apiUrl}?limit=${this.limit}&skip=${skip}`;
-    }
-    
-  }
-
-  constructorCountQuery(){
-    let keys = Object.keys(this.searchablefields);
-    let searchTerms = '';
-    let url = '';
-    if (keys) {
-      keys.forEach((key, index) => {
-        if (index === keys.length - 1 && this.searchablefields[key]) {
-          searchTerms += `${key}:${this.searchablefields[key]}&count=${key}`;
-        } else if (this.searchablefields[key]) {
-          searchTerms += `${key}:${this.searchablefields[key]}+AND+`;
-        }
-      });
-    }
-    this.skip = this.skip;
-    if (searchTerms) {
-      return url = `${this.apiUrl}?search=${searchTerms}`;
-    }
-    else {
-      return url = `${this.apiUrl}?count=`;
+      return url = `https://api.fda.gov${this.regulatoryApiUrl}?limit=${this.limit}&skip=${skip}`;
     }
     
   }

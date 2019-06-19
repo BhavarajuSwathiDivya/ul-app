@@ -1,5 +1,6 @@
 .home-container {
-    font-family: sans-serif;
+  font-family: sans-serif;
+
   ::ng-deep {
     .select1 {
       h2 {
@@ -8,7 +9,7 @@
 
       .ui-dropdown {
         width: 80%;
-    
+
         .ui-dropdown-label {
           color: #fff;
           background-color: #F39611;
@@ -35,8 +36,9 @@
           color: #000;
         }
       }
-      .ui-dropdown:not(.ui-state-disabled):hover{
-          border-color: #EE4F10;
+
+      .ui-dropdown:not(.ui-state-disabled):hover {
+        border-color: #EE4F10;
       }
     }
 
@@ -74,9 +76,10 @@
           color: #000;
         }
       }
-      .ui-dropdown:not(.ui-state-disabled):hover{
+
+      .ui-dropdown:not(.ui-state-disabled):hover {
         border-color: #214B9C;
-    }
+      }
     }
 
     .select3 {
@@ -113,67 +116,62 @@
           color: #000;
         }
       }
-      .ui-dropdown:not(.ui-state-disabled):hover{
+
+      .ui-dropdown:not(.ui-state-disabled):hover {
         border-color: #A22650;
+      }
     }
-    }
-  }
-
-  #dropdowndata::after{
-    display: none;
-  }
-
-  .searchlist {
-    margin-top: 25px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ccc;
-    .ui-inputgroup {
+    .searchlist {
+      margin-top: 25px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      border: 1px solid #ccc;
+      .nav{
+        .nav-item {
+          flex: 50%;
+          text-align: center;
+  
+          .nav-link.active {
+            color: #fff;
+            background-color: #005b9f;
+          }
+        }
+      }
+  
+      .ui-inputgroup {
         .ui-inputgroup-addon {
           background-color: #f5f7f8;
         }
       }
-    .listview {
-      padding: 15px;
-       &.error{
-           color:red;
-       } 
-      .listitem {
-        font-family: sans-serif;
-        background: #98fb989e;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        border: 1px solid #8cea8cfc;
-        h3 {
-          margin: 0;
+  
+      .listview {
+        padding: 15px;
+  
+        &.error {
+          color: red;
         }
-
-        .list-button {
-          text-align: center;
-          margin: auto;
-        }
-      }
-    }
-
-  }
-}
-
-::ng-deep {
-  body {
-    .ui-dialog {
-    //   padding: 0 10%;
-      width: 50%;
-      max-width:95%;
-      .ui-dialog-titlebar {
-        border: 1px solid #000;
-        background-color: #333;
-        color: #fff;
-        .ui-dialog-titlebar-icon{
-            font-size: 16px;
-            color: #fff;
-            &:hover{
-                color: #e0e0e0;
-            }
+  
+        .listitem {
+          font-family: sans-serif;
+          background: #98fb989e;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+          border: 1px solid #8cea8cfc;
+  
+          h3 {
+            margin: 0;
+          }
+  
+          .list-button {
+            text-align: center;
+            margin: auto;
+          }
         }
       }
+  
     }
   }
+
+  #dropdowndata::after {
+    display: none;
+  }
+
 }

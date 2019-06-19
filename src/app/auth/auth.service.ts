@@ -43,7 +43,7 @@ export class AuthService {
         let dataJson = JSON.parse(data);
         if (dataJson && dataJson.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', dataJson);
+          localStorage.setItem('currentUser', data);
           this.currentUserSubject.next(dataJson);
         }
         return dataJson;
@@ -59,5 +59,21 @@ export class AuthService {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+  }
+  getRegulatories(){
+    return this.http.get(`${apiUrl}auth/filters`, httpOptions).pipe(map((data: any) => { // not callback
+      // login successful if there's a jwt token in the response
+      let dataJson = JSON.parse(data);
+      if (dataJson && dataJson.token) {
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('currentUser', dataJson);
+        this.currentUserSubject.next(dataJson);
+      }
+      return dataJson;
+    }, error => {
+      console.error("Error", error);
+      return error;
+    }));
+
   }
 }

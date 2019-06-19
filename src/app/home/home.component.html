@@ -20,7 +20,88 @@
     <div class='p-col-12'>
       <p style="padding-left:10px;">Select zero or more search fields to make search easier.</p>
     </div>
-    <div class="p-col-12">
+    <div class='p-col-12'>
+      <ngb-tabset>
+        <ngb-tab title="Simple Search">
+          <ng-template ngbTabContent>
+            <div class="p-col-12">
+              <div class='p-grid'>
+                <ng-container *ngFor='let field of searchfields; index as i'>
+                  <div class="p-col-4" *ngIf="field.mandatory === 'true'">
+                    <div class="ui-g ui-fluid">
+                      <div class="ui-g-12">
+                        <div class="ui-inputgroup">
+                          <span class="ui-inputgroup-addon">
+                            <p-checkbox [(ngModel)]="selectedInputs[i]" binary="false"
+                              (onChange)="selectedInput.value = '';searchablefields[field.name]='';"></p-checkbox>
+                          </span>
+                          <input type="text" [disabled]="!selectedInputs[i]" #selectedInput pInputText
+                            placeholder="{{field.name}}" (input)="queryFields($event,field.name)">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+            <div class="p-col-12">
+              <div class="p-grid">
+                <div class="p-col-4">
+                  <label>Number of records per page </label>
+                </div>
+                <div class="p-col-4">
+                  <input type="text" pInputText [(ngModel)]=limit>
+                </div>
+                <div class="p-col-4">
+                  <button pButton type="button" class="ui-button-raised ui-button-primary" label='Submit'
+                    style='float: right;' (click)='getData()'></button>
+                </div>
+              </div>
+
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Advanced Search">
+          <ng-template ngbTabContent>
+            <div class="p-col-12">
+              <div class='p-grid'>
+                <div class="p-col-4" *ngFor='let field of searchfields; index as i'>
+                  <div class="ui-g ui-fluid">
+                    <div class="ui-g-12">
+                      <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon">
+                          <p-checkbox [(ngModel)]="selectedInputs[i]" binary="false"
+                            (onChange)="selectedInput.value = '';searchablefields[field]='';"></p-checkbox>
+                        </span>
+                        <input type="text" [disabled]="!selectedInputs[i]" #selectedInput pInputText
+                          placeholder="{{field.name}}" (input)="queryFields($event,field.name)">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-col-12">
+              <div class="p-grid">
+                <div class="p-col-4">
+                  <label>Number of records per page </label>
+                </div>
+                <div class="p-col-4">
+                  <input type="text" pInputText [(ngModel)]=limit>
+                </div>
+                <div class="p-col-4">
+                  <button pButton type="button" class="ui-button-raised ui-button-primary" label='Submit'
+                    style='float: right;' (click)='getData()'></button>
+                </div>
+              </div>
+
+            </div>
+
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+    <!-- <div class="p-col-12">
       <div class='p-grid'>
         <div class="p-col-4" *ngFor='let field of searchfields; index as i'>
           <div class="ui-g ui-fluid">
@@ -52,7 +133,7 @@
         </div>
       </div>
 
-    </div>
+    </div> -->
     <div class='listview error p-col-12' *ngIf="recordsError">
       <h1>{{recordsError}}</h1>
     </div>
@@ -62,20 +143,22 @@
         <i class="fa fa-columns" title="show/hide columns" id="dropdowndata" ngbDropdownToggle></i>
         <div ngbDropdownMenu aria-labelledby="dropdowndata">
           <a ngbDropdownItem href="#" *ngFor="let header of tableHeader">
-            <input type="checkbox" name="headerNames" (change)="updateTableData(header)" [checked]="displayTableHeader.indexOf(header)!==-1" value="{{header}}">{{header}}</a>
+            <input type="checkbox" name="headerNames" (change)="updateTableData(header)"
+              [checked]="displayTableHeader.indexOf(header)!==-1" value="{{header}}">{{header}}</a>
         </div>
       </div>
 
-      <p-table [value]="recordsArray" #Table [loading]="loading" [lazy]="true" (onLazyLoad)="loadLazy($event)" [totalRecords]="count" [responsive]="true" [scrollable]="true" [paginator]="true" [rows]="limit" >
+      <p-table [value]="recordsArray" #Table [loading]="loading" [lazy]="true" (onLazyLoad)="loadLazy($event)"
+        [totalRecords]="count" [responsive]="true" [scrollable]="true" [paginator]="true" [rows]="limit">
         <ng-template pTemplate="header">
           <tr>
-            <th *ngFor="let header of displayTableHeader"  [pSortableColumn]="header">{{header}}
-                <p-sortIcon [field]="header"></p-sortIcon>
+            <th *ngFor="let header of displayTableHeader" [pSortableColumn]="header">{{header}}
+              <p-sortIcon [field]="header"></p-sortIcon>
             </th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-device>
-          <tr >
+          <tr>
             <td *ngFor="let header of displayTableHeader">{{device[header]}}</td>
           </tr>
         </ng-template>
