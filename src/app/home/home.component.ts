@@ -53,14 +53,17 @@ export class HomeComponent implements OnInit {
     this.skip = 0;
     this.limit = 10;
     this.showTable = false;
-    this.loading = true;
+    this.loading = false;
     this.httpService.get(`${apiUrl}/auth/filters`).subscribe((data: any) => {
         this.data = data;
         this.data.regulatories.forEach((eachItem) => {
           this.regulatories.push({ "label": eachItem.regulatory, "value": eachItem.regulatory })
         });
       }, (err) => {
-        this.recordsError = err.error.error.message;
+        if(err.error){
+          this.recordsError = err.error.error.message;
+        }
+        this.recordsError = "Something went wrong please try after some time.";
     });
     this.transactions = [
       {
@@ -150,19 +153,18 @@ export class HomeComponent implements OnInit {
     this.recordsError="";
     this.recordsArray=[];
     this.showTable = true;
+    this.tableHeader = this.searchfields.map(o => o["name"]);
+    this.displayTableHeader = this.returnMandatoryTableHeader();
     if(this.tableComponent){   
       this.tableComponent.reset();
     }
   }
   loadLazy(event){
+    this.loading = true;
     this.skip = event.first;
-    //this.loading = true;
     this.getResponse(event);
   }
   initialiseTableData(event){  
-    this.tableHeader = this.searchfields.map(o => o["name"]);
-    this.displayTableHeader = this.returnMandatoryTableHeader();
-    
     if(event.sortField && event.sortOrder === 1){
       this.recordsArray.sort((a,b) => (a[event.sortField] > b[event.sortField]) ? 1 : ((b[event.sortField] > a[event.sortField]) ? -1 : 0)); 
     }
