@@ -47,10 +47,10 @@
             <div class="p-col-12 separater">
               <div class="p-grid">
                 <div class="p-col-4">
-                  <label>Number of records per page </label>
+                  <label>Number of records per page <small>( Min 10 and Max 100)</small></label>
                 </div>
                 <div class="p-col-4">
-                  <input type="text" pInputText [(ngModel)]=limit>
+                  <input type="number" min="10" max="100" pInputText [(ngModel)]=limit>
                 </div>
                 <div class="p-col-4">
                   <button pButton type="button" class="ui-button-raised ui-button-primary" label='Submit'
@@ -84,10 +84,10 @@
             <div class="p-col-12 separater">
               <div class="p-grid">
                 <div class="p-col-4">
-                  <label>Number of records per page </label>
+                  <label>Number of records per page <small>( Min 10 and Max 100)</small></label>
                 </div>
                 <div class="p-col-4">
-                  <input type="text" pInputText [(ngModel)]=limit>
+                  <input type="number" min="10" max="100" pInputText [(ngModel)]=limit>
                 </div>
                 <div class="p-col-4">
                   <button pButton type="button" class="ui-button-raised ui-button-primary" label='Submit'
@@ -130,7 +130,7 @@
         </div>
       </div>
 
-      <p-table [value]="recordsArray" #Table [lazy]="true" (onLazyLoad)="loadLazy($event)" [totalRecords]="count"
+      <p-table [value]="recordsArray" #Table [lazy]="true" class="defaultTable" (onLazyLoad)="loadLazy($event)" [totalRecords]="count"
         [responsive]="true" [scrollable]="true" [paginator]="true" [rows]="limit">
         <ng-template pTemplate="header">
           <tr>
@@ -139,19 +139,19 @@
             </th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-device>
+        <ng-template pTemplate="body" class="defaultTablebody" let-device>
           <tr>
             <td *ngFor="let header of displayTableHeader">
               <div *ngIf="header.split('.').shift()!=='openfda'">
-                <span *ngIf="typeOfData(device[header])!=='object'">
-                  {{device[header]}}
-                </span>
+                <div placement="top" class="pointer" popoverTitle="{{header}}" ngbPopover="{{device[header]}}" *ngIf="typeOfData(device[header])!=='object'">
+                  {{device[header] | dispText:100}}
+                </div>
                 <ul *ngIf="typeOfData(device[header])==='object'">
-                  <li *ngFor="let val of device[header]">{{ val | json }}</li>
+                  <li class="pointer" *ngFor="let val of device[header]" popoverTitle="{{header}}" ngbPopover="{{val | json}}">{{ val | json | dispText:100 }}</li>
                 </ul>
               </div>
-              <div *ngIf="header.split('.').shift()==='openfda'">
-                {{device['openfda'][header.split(".").pop()]}}
+              <div class="pointer" *ngIf="header.split('.').shift()==='openfda'" popoverTitle="{{header.split('.').pop()}}" ngbPopover="{{device['openfda'][header.split('.').pop()]}}">
+                {{ device['openfda'][header.split(".").pop()] | dispText:100}}
               </div>
             </td>
           </tr>

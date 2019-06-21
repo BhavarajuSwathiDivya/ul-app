@@ -29,13 +29,15 @@ import { HeaderComponent } from './header/header.component';
 import { JwtInterceptor } from './_helper/jwt.interceptor';
 import { ErrorInterceptor} from './_helper/error.interceptor';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { DispTextPipe } from './disp-text.pipe';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    DispTextPipe
   ],
   imports: [
     BrowserModule,
