@@ -47,10 +47,10 @@
             <div class="p-col-12 separater">
               <div class="p-grid">
                 <div class="p-col-4">
-                  <label>Number of records per page <small>( Min 10 and Max 100)</small></label>
+                  <label>Number of records per page <small>(By Default 10)</small></label>
                 </div>
                 <div class="p-col-4">
-                  <input type="number" min="10" max="100" pInputText [(ngModel)]=limit>
+                  <input type="text" pInputText [(ngModel)]=limit>
                 </div>
                 <div class="p-col-4">
                   <button pButton type="button" class="ui-button-raised ui-button-primary" label='Submit'
@@ -84,10 +84,10 @@
             <div class="p-col-12 separater">
               <div class="p-grid">
                 <div class="p-col-4">
-                  <label>Number of records per page <small>( Min 10 and Max 100)</small></label>
+                  <label>Number of records per page <small>( By default 10)</small></label>
                 </div>
                 <div class="p-col-4">
-                  <input type="number" min="10" max="100" pInputText [(ngModel)]=limit>
+                  <input type="text" pInputText [(ngModel)]=limit>
                 </div>
                 <div class="p-col-4">
                   <button pButton type="button" class="ui-button-raised ui-button-primary" label='Submit'
@@ -108,8 +108,8 @@
     </div>
     <div class="listview p-col-12" *ngIf="showTable">
 
-      <div ngbDropdown class="dropdown">
-        <i class="fa fa-columns" title="show/hide columns" id="dropdowndata" ngbDropdownToggle></i>
+      <div ngbDropdown class="dropdown" id="drop-down-list">
+        <i class="fa fa-columns pointer" title="show/hide columns" id="dropdowndata" ngbDropdownToggle></i>
         <div ngbDropdownMenu aria-labelledby="dropdowndata">
           <div class="appendHeaderList">
             <div class="custom-control custom-checkbox">
@@ -119,12 +119,12 @@
               <button type="button" (click)="resetHeaders()" class="btn btn-link resetDropdownList">Reset</button>
             </div>
           </div>
-          <div ngbDropdownItem *ngFor="let header of tableHeader; let i=index">
+          <div *ngFor="let header of tableHeader; let i=index" class="appendHeaderList">
             <div class="custom-control custom-checkbox">
 
               <input type="checkbox" name="headerNames" class="custom-control-input" (change)="updateTableData(header)"
                 [checked]="displayTableHeader.indexOf(header)!==-1" id="{{'headerNames_'+i}}" value="{{header}}">
-              <label class="custom-control-label" for="{{'headerNames_'+i}}">{{header}}</label>
+              <label class="custom-control-label" for="{{'headerNames_'+i}}">{{header | removeSpecialCharc | titlecase}}</label>
             </div>
           </div>
         </div>
@@ -134,7 +134,8 @@
         [responsive]="true" [scrollable]="true" [paginator]="true" [rows]="limit">
         <ng-template pTemplate="header">
           <tr>
-            <th *ngFor="let header of displayTableHeader" [pSortableColumn]="header">{{header | titlecase}}
+            <th *ngFor="let header of displayTableHeader" [pSortableColumn]="header">
+              {{ header | removeSpecialCharc | titlecase}}
               <p-sortIcon [field]="header"></p-sortIcon>
             </th>
           </tr>
@@ -143,14 +144,14 @@
           <tr>
             <td *ngFor="let header of displayTableHeader">
               <div *ngIf="header.split('.').shift()!=='openfda'">
-                <div placement="top" class="pointer" popoverTitle="{{header}}" ngbPopover="{{device[header]}}" *ngIf="typeOfData(device[header])!=='object'">
+                <div placement="top" class="pointer" popoverTitle="{{header | removeSpecialCharc | titlecase}}" ngbPopover="{{device[header]}}" *ngIf="typeOfData(device[header])!=='object'">
                   {{device[header] | dispText:100}}
                 </div>
                 <ul *ngIf="typeOfData(device[header])==='object'">
-                  <li class="pointer" *ngFor="let val of device[header]" popoverTitle="{{header}}" ngbPopover="{{val | json}}">{{ val | json | dispText:100 }}</li>
+                  <li class="pointer" *ngFor="let val of device[header]" popoverTitle="{{header | removeSpecialCharc | titlecase}}" ngbPopover="{{val | json}}">{{ val | json | dispText:100 }}</li>
                 </ul>
               </div>
-              <div class="pointer" *ngIf="header.split('.').shift()==='openfda'" popoverTitle="{{header.split('.').pop()}}" ngbPopover="{{device['openfda'][header.split('.').pop()]}}">
+              <div class="pointer" *ngIf="header.split('.').shift()==='openfda'" popoverTitle="{{header | removeSpecialCharc | titlecase}}" ngbPopover="{{device['openfda'][header.split('.').pop()]}}">
                 {{ device['openfda'][header.split(".").pop()] | dispText:100}}
               </div>
             </td>

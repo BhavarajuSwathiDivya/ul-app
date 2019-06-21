@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
   showTable: boolean;
   loading: boolean;
   constructor(private httpService: HttpClient, private httpClient: HttpClient, handler: HttpBackend,config: NgbDropdownConfig) {
-    config.autoClose = false;
+    //config.autoClose = false;
     this.httpClient = new HttpClient(handler);
   
    }

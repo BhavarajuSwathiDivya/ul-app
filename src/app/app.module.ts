@@ -30,6 +30,7 @@ import { JwtInterceptor } from './_helper/jwt.interceptor';
 import { ErrorInterceptor} from './_helper/error.interceptor';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { DispTextPipe } from './disp-text.pipe';
+import { RemoveSpecialCharcPipe } from './remove-special-charc.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,8 @@ import { DispTextPipe } from './disp-text.pipe';
     DashboardComponent,
     HomeComponent,
     HeaderComponent,
-    DispTextPipe
+    DispTextPipe,
+    RemoveSpecialCharcPipe
   ],
   imports: [
     BrowserModule,
