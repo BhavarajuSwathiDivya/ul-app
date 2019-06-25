@@ -16,8 +16,7 @@ const httpOptions = {
 export class LoginComponent implements OnInit {
   userprofile = {username: '',password:''};
   userform: FormGroup;
-
-  error:'';
+  loginError:'';
   constructor(private fb: FormBuilder,private router: Router,private authService:AuthService,private http: HttpClient) {
           if(!this.authService.isLoggedIn()){
               this.router.navigate(['/']);
@@ -38,11 +37,15 @@ export class LoginComponent implements OnInit {
     if(this.userprofile.username && this.userprofile.password){
         this.authService.login(this.userprofile).pipe().subscribe(
           data => {
+            if(data.error){
+              this.loginError = data.error.errorMessage;
+            }
+             else{
               this.router.navigate(['/']);
+             }
           },
           error => {
             console.error("Error", error);
-              this.error = error;
               // this.loading = false;
           });
     }else{

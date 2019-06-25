@@ -21,6 +21,9 @@
   .dropdown {
     float:right;
     position: relative;
+    a:hover{
+      text-decoration: none;
+    }
   }
   
   .dropdown-content {
